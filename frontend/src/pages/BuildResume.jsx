@@ -6,7 +6,7 @@ import AISuggestions from '../components/AISuggestions'
 import HeaderWithUser from '../components/HeaderWithUser'
 import ResumeTemplate_Minimal from '../components/ResumeTemplate_Minimal'
 import ResumeTemplate1 from '../components/ResumeTemplate1'
-import ResumeTemplate3 from '../components/ResumeTemplate3'
+import ResumeTemplate3 from '../components/resumetemplate3'
 import AccentColorPicker from '../components/AccentColorPicker'
 import TemplateSelector from '../components/TemplateSelector'
 
