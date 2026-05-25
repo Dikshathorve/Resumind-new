@@ -127,7 +127,7 @@ Return JSON with:
 
     // Format experiences for analysis
     const experiencesText = experiences.map((exp, idx) => 
-      `Experience ${idx + 1}: ${exp.role} at ${exp.company} - "${exp.desc}"`
+      `Experience ${idx + 1}: ${exp.role || exp.jobTitle || ''} at ${exp.company || ''} - "${exp.desc || exp.description || ''}"`
     ).join('\n');
 
     const userPrompt = `Analyze these professional experiences against the job description. Suggest how to rewrite each one to highlight relevant skills:
@@ -313,7 +313,7 @@ Return JSON with:
 
     // Format projects
     const projectsText = projects.map((proj, idx) =>
-      `Project ${idx + 1}: ${proj.name} (${proj.type}) - "${proj.description}"`
+      `Project ${idx + 1}: ${proj.name || proj.projectName || ''} (${proj.type || proj.projectType || ''}) - "${proj.description || proj.desc || ''}"`
     ).join('\n');
 
     const userPrompt = `Analyze these projects against the job description:

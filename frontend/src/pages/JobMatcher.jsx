@@ -80,6 +80,24 @@ export default function JobMatcher({ onClose, resumeData, resumeId = null }) {
     try {
       const apiBaseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
       
+      if (!jobDescription || !jobDescription.trim()) {
+        alert('Please paste a valid job description before analyzing.')
+        setLoading(false)
+        return
+      }
+
+      const hasResumeContent =
+        !!currentResumeData.summary ||
+        (currentResumeData.experiences && currentResumeData.experiences.length > 0) ||
+        (currentResumeData.skills && currentResumeData.skills.length > 0) ||
+        (currentResumeData.projects && currentResumeData.projects.length > 0)
+
+      if (!hasResumeContent && !resumeId) {
+        alert('Please create or load a resume before running job matcher analysis.')
+        setLoading(false)
+        return
+      }
+
       const response = await fetch(`${apiBaseUrl}/analysis/job-matcher`, {
         method: 'POST',
         headers: {
@@ -87,6 +105,7 @@ export default function JobMatcher({ onClose, resumeData, resumeId = null }) {
         },
         credentials: 'include',
         body: JSON.stringify({
+          resumeId,
           jobDescription,
           summary: currentResumeData.summary || '',
           experiences: currentResumeData.experiences || [],
@@ -96,9 +115,9 @@ export default function JobMatcher({ onClose, resumeData, resumeId = null }) {
       })
 
       if (!response.ok) {
-        const error = await response.json()
+        const error = await response.json().catch(() => ({ message: 'Unknown error' }))
         console.error('Job matcher API error:', error)
-        alert('Error analyzing job match. Please try again.')
+        alert(`Error analyzing job match: ${error.message || 'Please try again.'}`)
         setLoading(false)
         return
       }

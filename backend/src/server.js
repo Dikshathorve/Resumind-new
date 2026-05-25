@@ -85,8 +85,8 @@ app.use(notFoundHandler)
 app.use(errorHandler)
 
 // Start server
-const PORT = config.port
-app.listen(PORT, () => {
+const PORT = parseInt(config.port, 10) || 5000
+const server = app.listen(PORT, () => {
   console.log(`
     ╔═══════════════════════════════════════════╗
     ║   Resumind Backend Server Started          ║
@@ -96,6 +96,16 @@ app.listen(PORT, () => {
     ║   Session: MongoDB Store                   ║
     ╚═══════════════════════════════════════════╝
   `)
+})
+
+server.on('error', (error) => {
+  if (error.code === 'EADDRINUSE') {
+    console.error(`Port ${PORT} is already in use. Please stop the process using that port or set PORT to a different value.`)
+    process.exit(1)
+  }
+
+  console.error('Server failed to start:', error)
+  process.exit(1)
 })
 
 export default app

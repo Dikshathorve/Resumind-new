@@ -1,4 +1,5 @@
 import { AnalysisResult } from '../models/AnalysisResult.js'
+import { Resume } from '../models/Resume.js'
 import { asyncHandler } from '../middleware/middleware.js'
 import { performComprehensiveJobMatching } from '../services/aiJobMatcherService.js'
 
@@ -16,8 +17,37 @@ export const analyzeJobMatcher = asyncHandler(async (req, res) => {
     })
   }
 
-  // Validate that at least some resume data is provided
-  if (!summary && (!experiences || experiences.length === 0) && (!skills || skills.length === 0) && (!projects || projects.length === 0)) {
+  let finalSummary = summary || ''
+  let finalExperiences = Array.isArray(experiences) ? experiences : []
+  let finalSkills = Array.isArray(skills) ? skills : []
+  let finalProjects = Array.isArray(projects) ? projects : []
+
+  if (resumeId && (!finalSummary || (finalExperiences.length === 0 && finalSkills.length === 0 && finalProjects.length === 0))) {
+    const resumeDoc = await Resume.findOne({ _id: resumeId, userId })
+    if (resumeDoc) {
+      finalSummary = finalSummary || resumeDoc.summary || ''
+      finalExperiences = finalExperiences.length > 0 ? finalExperiences : (resumeDoc.experiences || []).map(exp => ({
+        role: exp.jobTitle || '',
+        company: exp.company || '',
+        desc: exp.description || '',
+        location: exp.location || '',
+        startDate: exp.startDate,
+        endDate: exp.endDate,
+        currentlyWorking: exp.currentlyWorking || false,
+      }))
+      finalSkills = finalSkills.length > 0 ? finalSkills : (resumeDoc.skills || [])
+      finalProjects = finalProjects.length > 0 ? finalProjects : (resumeDoc.projects || []).map(proj => ({
+        name: proj.projectName || '',
+        description: proj.description || '',
+        technologies: proj.technologies || [],
+        projectLink: proj.projectLink || '',
+        startDate: proj.startDate,
+        endDate: proj.endDate,
+      }))
+    }
+  }
+
+  if (!finalSummary && finalExperiences.length === 0 && finalSkills.length === 0 && finalProjects.length === 0) {
     return res.status(400).json({
       success: false,
       message: 'At least some resume content (summary, experiences, skills, or projects) is required',
@@ -30,10 +60,10 @@ export const analyzeJobMatcher = asyncHandler(async (req, res) => {
     // Perform comprehensive job matching using AI
     const analysisResults = await performComprehensiveJobMatching(
       {
-        summary: summary || '',
-        experiences: experiences || [],
-        skills: skills || [],
-        projects: projects || []
+        summary: finalSummary,
+        experiences: finalExperiences,
+        skills: finalSkills,
+        projects: finalProjects,
       },
       jobDescription
     )
