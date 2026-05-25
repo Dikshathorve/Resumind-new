@@ -2,7 +2,7 @@ export default function BuildHeader({ onClose }) {
   return (
     <header className="build-header-nav">
       <div className="build-header-container">
-        <button className="back-button-nav" onClick={onClose}>← Back to Home</button>
+        <button className="back-button-nav" onClick={onClose} title="Back to home" aria-label="Back to home">← Back to Home</button>
         
         <nav className="build-nav">
           <a href="#job-matcher" className="nav-item">

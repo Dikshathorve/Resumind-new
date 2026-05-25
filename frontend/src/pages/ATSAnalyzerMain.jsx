@@ -158,7 +158,7 @@ export default function ATSAnalyzerMain({ onClose, resumeData }) {
   return (
     <div className="ats-analyzer-main-page">
       <div className="ats-analyzer-nav">
-        <button className="ats-back-btn" onClick={onClose}>
+        <button className="ats-back-btn" onClick={onClose} title="Go back to builder" aria-label="Back to builder">
           <ArrowLeft size={20} />
           <span>Back to Builder</span>
         </button>

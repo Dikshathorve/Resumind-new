@@ -172,6 +172,7 @@ export default function OTPVerification({ email, fullName, signupData, onVerifie
           className="otp-close-btn" 
           onClick={onCancel} 
           aria-label="Close"
+          title="Close OTP verification"
           disabled={loading}
         >
           <X size={24} />
@@ -207,6 +208,7 @@ export default function OTPVerification({ email, fullName, signupData, onVerifie
                 onChange={handleOtpChange}
                 placeholder="000000"
                 maxLength="6"
+                autoComplete="off"
                 disabled={loading}
                 className="otp-input"
               />

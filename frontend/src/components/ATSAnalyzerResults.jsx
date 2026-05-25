@@ -186,14 +186,14 @@ For more details, visit your resume builder.
 
         {/* Action Buttons */}
         <div className="ats-results-actions">
-          <button className="ats-action-btn ats-secondary" onClick={onNewAnalysis}>
+          <button className="ats-action-btn ats-secondary" onClick={onNewAnalysis} title="Analyze another resume">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <polyline points="23 4 23 10 17 10"></polyline>
               <path d="M20.49 15a9 9 0 1 1-2-8.947m2 8.947h1"></path>
             </svg>
             Analyze Another Resume
           </button>
-          <button className="ats-action-btn ats-primary" onClick={downloadReport}>
+          <button className="ats-action-btn ats-primary" onClick={downloadReport} title="Download analysis report">
             <Download size={20} />
             Download Report
           </button>

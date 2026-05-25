@@ -113,6 +113,7 @@ export default function SignIn({ onClose, onSuccess, onShowSignUp }) {
                   value={formData.email}
                   onChange={handleChange}
                   required
+                  autoComplete="email"
                 />
               </div>
             </div>
@@ -129,6 +130,7 @@ export default function SignIn({ onClose, onSuccess, onShowSignUp }) {
                   value={formData.password}
                   onChange={handleChange}
                   required
+                  autoComplete="current-password"
                 />
               </div>
             </div>

@@ -39,12 +39,12 @@ export default function Header({ onSignIn, onSignUp, onLogout }) {
             </>
           ) : (
             <>
-              <button className="login-button" onClick={onSignIn}>Sign In</button>
-              <button className="cta-button" onClick={onSignUp}>Sign Up</button>
+              <button className="login-button" onClick={onSignIn} title="Sign in to your account">Sign In</button>
+              <button className="cta-button" onClick={onSignUp} title="Create a new account">Sign Up</button>
             </>
           )}
         </div>
-        <button className="hamburger" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+        <button className="hamburger" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle navigation menu" title="Toggle menu">
           <span></span>
           <span></span>
           <span></span>

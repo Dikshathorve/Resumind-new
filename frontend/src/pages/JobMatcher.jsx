@@ -343,7 +343,7 @@ export default function JobMatcher({ onClose, resumeData, resumeId = null }) {
 
       <div className="job-matcher-content">
         <div className="job-matcher-header">
-          <button className="back-button" onClick={onClose}>
+          <button className="back-button" onClick={onClose} title="Go back" aria-label="Back button">
             <ChevronLeft size={20} />
             Back
           </button>

@@ -143,7 +143,7 @@ export default function ProjectsPage({ onStart, onClose, onEditResume }) {
     <div className="projects-page">
       <HeaderWithUser onLogout={handleLogout} userName={user?.fullName || 'User'} />
       <div className="projects-header">
-        <button className="back-btn" onClick={onClose}>
+        <button className="back-btn" onClick={onClose} title="Back to dashboard" aria-label="Back to dashboard">
           ← Back to Dashboard
         </button>
         <div className="header-content">

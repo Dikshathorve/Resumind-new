@@ -23,9 +23,9 @@ export default function HeroSection({ onStart, onSignUp }) {
         </p>
         <div className="hero-buttons">
           {isAuthenticated ? (
-            <button className="primary-button" onClick={onStart}>Build my CV</button>
+            <button className="primary-button" onClick={onStart} title="Start building your resume">Build my CV</button>
           ) : (
-            <button className="primary-button" onClick={onSignUp}>Build my CV</button>
+            <button className="primary-button" onClick={onSignUp} title="Sign up and build your resume">Build my CV</button>
           )}
         </div>
       </div>

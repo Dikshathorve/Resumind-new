@@ -26,7 +26,7 @@ export default function CreateResumeModal({ isOpen, onClose, onSubmit, isLoading
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h2>Create New Resume</h2>
-          <button className="modal-close-btn" onClick={onClose}>
+          <button className="modal-close-btn" onClick={onClose} title="Close modal" aria-label="Close modal">
             <X size={24} />
           </button>
         </div>
@@ -43,6 +43,7 @@ export default function CreateResumeModal({ isOpen, onClose, onSubmit, isLoading
                 setResumeTitle(e.target.value)
                 setError('')
               }}
+              autoComplete="off"
               disabled={isLoading}
               autoFocus
             />

@@ -51,6 +51,33 @@ const corsOptions = {
 
 app.use(cors(corsOptions))
 
+// Security headers middleware
+app.use((req, res, next) => {
+  // Add X-Content-Type-Options header to prevent MIME type sniffing
+  res.setHeader('X-Content-Type-Options', 'nosniff')
+  
+  // Set appropriate cache-control headers for different route types
+  if (req.path.startsWith('/api/')) {
+    // For API responses: don't cache sensitive data
+    res.setHeader('Cache-Control', 'no-cache, no-store, max-age=0, must-revalidate')
+  } else {
+    // For static assets: allow shorter caching
+    res.setHeader('Cache-Control', 'public, max-age=3600')
+  }
+  
+  // Handle Set-Cookie headers (remove unsupported partitioned attribute if present)
+  const originalSetHeader = res.setHeader
+  res.setHeader = function(name, value) {
+    if (name && name.toLowerCase() === 'set-cookie' && typeof value === 'string') {
+      // Remove the problematic 'partitioned' attribute
+      value = value.replace(/;\s*partitioned/gi, '')
+    }
+    return originalSetHeader.call(this, name, value)
+  }
+  
+  next()
+})
+
 // Session middleware
 app.use(sessionConfig)
 

@@ -25,10 +25,10 @@ export default function HeaderWithUser({ onLogout, userName = 'Avinosh', navActi
         <div className="header-actions">
           <div className="user-info-header">
             <span className="user-name-header">Hi, {userName}</span>
-            <button className="logout-btn-header" onClick={onLogout}>Logout</button>
+            <button className="logout-btn-header" onClick={onLogout} title="Logout from your account">Logout</button>
           </div>
         </div>
-        <button className="hamburger" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+        <button className="hamburger" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle navigation menu" title="Toggle menu">
           <span></span>
           <span></span>
           <span></span>

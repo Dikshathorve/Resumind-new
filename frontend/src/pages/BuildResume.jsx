@@ -375,7 +375,7 @@ export default function BuildResume({ onClose, onATSAnalyzer, onJobMatcher, resu
                 <Mail size={18} />
                 Email Address <span className="required">*</span>
               </label>
-              <input placeholder="Enter your email address" type="email" value={personal.email} onChange={e => setPersonal({...personal, email: e.target.value})} />
+              <input placeholder="Enter your email address" type="email" value={personal.email} onChange={e => setPersonal({...personal, email: e.target.value})} autoComplete="email" />
             </div>
 
             <div className="form-group">
@@ -524,7 +524,8 @@ export default function BuildResume({ onClose, onATSAnalyzer, onJobMatcher, resu
                           const copy = [...experiences]
                           copy[idx].company = e.target.value
                           setExperiences(copy)
-                        }} 
+                        }}
+                        autoComplete="organization"
                       />
                     </div>
                     <div className="form-group">
@@ -537,7 +538,8 @@ export default function BuildResume({ onClose, onATSAnalyzer, onJobMatcher, resu
                           const copy = [...experiences]
                           copy[idx].jobTitle = e.target.value
                           setExperiences(copy)
-                        }} 
+                        }}
+                        autoComplete="off"
                       />
                     </div>
                   </div>
@@ -666,7 +668,8 @@ export default function BuildResume({ onClose, onATSAnalyzer, onJobMatcher, resu
                           const copy = [...education]
                           copy[idx].institution = e.target.value
                           setEducation(copy)
-                        }} 
+                        }}
+                        autoComplete="off"
                       />
                     </div>
                     <div className="form-group">
@@ -679,7 +682,8 @@ export default function BuildResume({ onClose, onATSAnalyzer, onJobMatcher, resu
                           const copy = [...education]
                           copy[idx].degree = e.target.value
                           setEducation(copy)
-                        }} 
+                        }}
+                        autoComplete="off"
                       />
                     </div>
                   </div>
@@ -694,7 +698,8 @@ export default function BuildResume({ onClose, onATSAnalyzer, onJobMatcher, resu
                         const copy = [...education]
                         copy[idx].fieldOfStudy = e.target.value
                         setEducation(copy)
-                      }} 
+                      }}
+                      autoComplete="off"
                     />
                   </div>
 
@@ -721,7 +726,8 @@ export default function BuildResume({ onClose, onATSAnalyzer, onJobMatcher, resu
                           const copy = [...education]
                           copy[idx].gpa = e.target.value
                           setEducation(copy)
-                        }} 
+                        }}
+                        autoComplete="off"
                       />
                     </div>
                   </div>
@@ -782,7 +788,8 @@ export default function BuildResume({ onClose, onATSAnalyzer, onJobMatcher, resu
                           const copy = [...projects]
                           copy[idx].name = e.target.value
                           setProjects(copy)
-                        }} 
+                        }}
+                        autoComplete="off"
                       />
                     </div>
                     <div className="form-group">
@@ -795,7 +802,8 @@ export default function BuildResume({ onClose, onATSAnalyzer, onJobMatcher, resu
                           const copy = [...projects]
                           copy[idx].type = e.target.value
                           setProjects(copy)
-                        }} 
+                        }}
+                        autoComplete="off"
                       />
                     </div>
                   </div>
@@ -840,7 +848,8 @@ export default function BuildResume({ onClose, onATSAnalyzer, onJobMatcher, resu
                     setSkillInput('')
                     e.preventDefault()
                   }
-                }} 
+                }}
+                autoComplete="off"
               />
               <button 
                 className="add-skill-btn"
@@ -937,7 +946,8 @@ export default function BuildResume({ onClose, onATSAnalyzer, onJobMatcher, resu
                           const copy = [...certifications]
                           copy[idx].certName = e.target.value
                           setCertifications(copy)
-                        }} 
+                        }}
+                        autoComplete="off"
                       />
                     </div>
                     <div className="form-group">
@@ -950,7 +960,8 @@ export default function BuildResume({ onClose, onATSAnalyzer, onJobMatcher, resu
                           const copy = [...certifications]
                           copy[idx].issuer = e.target.value
                           setCertifications(copy)
-                        }} 
+                        }}
+                        autoComplete="off"
                       />
                     </div>
                   </div>
@@ -1046,7 +1057,7 @@ export default function BuildResume({ onClose, onATSAnalyzer, onJobMatcher, resu
               <Briefcase size={20} className="nav-icon-svg" />
               <span className="nav-label">Job Matcher</span>
             </button>
-            <button className="nav-item" onClick={() => onATSAnalyzer({ personal, summary, experiences, education, skills, certifications })}>
+            <button className="nav-item" onClick={() => onATSAnalyzer({ personal, summary, experiences, education, skills, certifications })} title="Analyze resume for ATS compatibility" aria-label="ATS Analyzer">
               <FileText size={20} className="nav-icon-svg" />
               <span className="nav-label">ATS Analyzer</span>
             </button>
@@ -1055,7 +1066,7 @@ export default function BuildResume({ onClose, onATSAnalyzer, onJobMatcher, resu
               setAiFieldType('jobTitle')
               setAiFieldValue(personal.jobTitle || '')
               setAiFieldIndex(null)
-            }}>
+            }} title="Get AI assistance" aria-label="AI Assist">
               <Sparkles size={20} className="nav-icon-svg" />
               <span className="nav-label">AI Assist</span>
             </button>
@@ -1065,7 +1076,7 @@ export default function BuildResume({ onClose, onATSAnalyzer, onJobMatcher, resu
       <div className="build-content">
         <div className="build-title">
           <div className="title-left">
-            <button className="back-to-dashboard" onClick={onClose}>
+            <button className="back-to-dashboard" onClick={onClose} title="Back to dashboard" aria-label="Back to dashboard">
               ← Back to Dashboard
             </button>
           </div>
@@ -1081,7 +1092,7 @@ export default function BuildResume({ onClose, onATSAnalyzer, onJobMatcher, resu
               <Save size={20} />
               {isSaving ? 'Saving...' : 'Save Changes'}
             </button>
-            <button className="btn-download" onClick={handleDownload}>
+            <button className="btn-download" onClick={handleDownload} title="Download your resume">
               <Download size={20} />
               Download
             </button>

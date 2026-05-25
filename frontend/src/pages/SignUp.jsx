@@ -289,6 +289,7 @@ export default function SignUp({ onClose, onSuccess, onShowSignIn }) {
                         onChange={handleChange}
                         required
                         disabled={loading}
+                        autoComplete="name"
                       />
                     </div>
                   </div>
@@ -306,6 +307,7 @@ export default function SignUp({ onClose, onSuccess, onShowSignIn }) {
                         onChange={handleChange}
                         required
                         disabled={loading}
+                        autoComplete="email"
                       />
                     </div>
                   </div>
@@ -322,6 +324,7 @@ export default function SignUp({ onClose, onSuccess, onShowSignIn }) {
                         value={formData.password}
                         onChange={handleChange}
                         required
+                        autoComplete="new-password"
                         disabled={loading}
                       />
                     </div>
@@ -339,6 +342,7 @@ export default function SignUp({ onClose, onSuccess, onShowSignIn }) {
                         value={formData.confirmPassword}
                         onChange={handleChange}
                         required
+                        autoComplete="new-password"
                         disabled={loading}
                       />
                     </div>

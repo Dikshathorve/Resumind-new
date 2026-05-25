@@ -5,7 +5,7 @@ export default function BuildATSAnalyzer({ onAnalyze, onClose }) {
   return (
     <div className="build-ats-analyzer">
       <div className="build-ats-nav">
-        <button className="build-ats-back-btn" onClick={onClose}>
+        <button className="build-ats-back-btn" onClick={onClose} title="Go back to builder" aria-label="Back to builder">
           <ArrowLeft size={20} />
           <span>Back to Builder</span>
         </button>

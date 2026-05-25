@@ -24,6 +24,8 @@ export default function ResumeCard({ resume, onDelete, onDuplicate, onDownload, 
             e.stopPropagation()
             setShowMenu(!showMenu)
           }}
+          title="Resume menu"
+          aria-label="Resume menu"
         >
           <MoreVertical size={20} />
         </button>

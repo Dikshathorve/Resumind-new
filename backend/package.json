@@ -10,7 +10,6 @@
     "test": "node --test",
     "lint": "eslint .",
     "build": "npm run lint && npm run test"
-
   },
   "keywords": [
     "resume",
