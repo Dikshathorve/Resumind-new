@@ -69,9 +69,11 @@ export const analyzeJobMatcher = asyncHandler(async (req, res) => {
     )
 
     if (!analysisResults.success) {
-      return res.status(400).json({
+      console.error('❌ Job matcher failed:', analysisResults.message);
+      return res.status(503).json({
         success: false,
         message: analysisResults.message,
+        error: analysisResults.error
       })
     }
 

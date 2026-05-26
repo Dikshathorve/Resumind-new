@@ -39,9 +39,11 @@ export const analyzeATSResume = asyncHandler(async (req, res) => {
     const analysis = await analyzeResumeForATS(resumeText, jobDescription);
 
     if (!analysis.success) {
-      return res.status(400).json({
+      console.error('❌ ATS analysis failed:', analysis.message);
+      return res.status(503).json({
         success: false,
-        message: analysis.message
+        message: analysis.message,
+        error: analysis.error
       });
     }
 
@@ -75,19 +77,23 @@ export const analyzeATSBuiltResume = asyncHandler(async (req, res) => {
   if (!resumeData) {
     return res.status(400).json({
       success: false,
-      message: 'Resume data is required'
+      message: 'Resume data is required',
+      debug: 'resumeData is null or undefined'
     });
   }
 
   try {
     console.log('🔍 Starting ATS analysis for built resume');
+    console.log('📊 Resume data keys:', Object.keys(resumeData || {}).join(', '));
 
     const analysis = await analyzeBuiltResumeForATS(resumeData, jobDescription);
 
     if (!analysis.success) {
-      return res.status(400).json({
+      console.error('❌ ATS analysis failed:', analysis.message);
+      return res.status(503).json({
         success: false,
-        message: analysis.message
+        message: analysis.message,
+        error: analysis.error
       });
     }
 

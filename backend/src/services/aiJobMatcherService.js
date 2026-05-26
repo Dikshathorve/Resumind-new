@@ -434,6 +434,19 @@ export const performComprehensiveJobMatching = async (resumeData, jobDescription
       projects && projects.length > 0 ? analyzeProjectsForJD(projects, jobDescription) : Promise.resolve(null)
     ]);
 
+    // Check if any analysis failed
+    const failedAnalysis = [summaryAnalysis, experiencesAnalysis, skillsAnalysis, projectsAnalysis]
+      .find(analysis => analysis && analysis.success === false);
+    
+    if (failedAnalysis) {
+      console.error('❌ Job matcher analysis failed:', failedAnalysis.message);
+      return {
+        success: false,
+        message: failedAnalysis.message,
+        error: failedAnalysis.error
+      };
+    }
+
     // Calculate overall match score
     const scores = [];
     if (summaryAnalysis?.analysis?.matchScore) scores.push(summaryAnalysis.analysis.matchScore);
