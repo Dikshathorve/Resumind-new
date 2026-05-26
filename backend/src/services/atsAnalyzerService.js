@@ -51,6 +51,16 @@ const ATS_RULES_CONTEXT = `
 
 export const analyzeResumeForATS = async (resumeText, jobDescription) => {
   try {
+    // Check if OPENAI_API_KEY is configured
+    if (!process.env.OPENAI_API_KEY) {
+      console.error('❌ OPENAI_API_KEY not configured for ATS analysis');
+      return {
+        success: false,
+        message: 'AI service is not configured. Please configure OPENAI_API_KEY in environment variables.',
+        error: 'OPENAI_API_KEY not set'
+      };
+    }
+
     if (!resumeText || !jobDescription) {
       return {
         success: false,

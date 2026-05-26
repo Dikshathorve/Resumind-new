@@ -6,6 +6,16 @@ import OpenAI from 'openai';
  */
 export const analyzeSummaryForJD = async (summary, jobDescription) => {
   try {
+    // Check if OPENAI_API_KEY is configured
+    if (!process.env.OPENAI_API_KEY) {
+      console.error('❌ OPENAI_API_KEY not configured for job matching');
+      return {
+        success: false,
+        message: 'AI service is not configured. Please configure OPENAI_API_KEY in environment variables.',
+        error: 'OPENAI_API_KEY not set'
+      };
+    }
+
     if (!summary || !jobDescription) {
       return {
         success: false,
@@ -93,6 +103,16 @@ Rewrite the summary to align with the JD using its keywords and tone while keepi
  */
 export const analyzeExperiencesForJD = async (experiences, jobDescription) => {
   try {
+    // Check if OPENAI_API_KEY is configured
+    if (!process.env.OPENAI_API_KEY) {
+      console.error('❌ OPENAI_API_KEY not configured for job matching');
+      return {
+        success: false,
+        message: 'AI service is not configured. Please configure OPENAI_API_KEY in environment variables.',
+        error: 'OPENAI_API_KEY not set'
+      };
+    }
+
     if (!experiences || experiences.length === 0 || !jobDescription) {
       return {
         success: false,
@@ -189,6 +209,16 @@ For each experience, suggest rewording that uses JD keywords and action verbs wh
  */
 export const analyzeSkillsForJD = async (skills, jobDescription) => {
   try {
+    // Check if OPENAI_API_KEY is configured
+    if (!process.env.OPENAI_API_KEY) {
+      console.error('❌ OPENAI_API_KEY not configured for job matching');
+      return {
+        success: false,
+        message: 'AI service is not configured. Please configure OPENAI_API_KEY in environment variables.',
+        error: 'OPENAI_API_KEY not set'
+      };
+    }
+
     if (!skills || skills.length === 0 || !jobDescription) {
       return {
         success: false,
@@ -279,6 +309,16 @@ Identify matching skills, suggest better ordering to emphasize JD-relevant skill
  */
 export const analyzeProjectsForJD = async (projects, jobDescription) => {
   try {
+    // Check if OPENAI_API_KEY is configured
+    if (!process.env.OPENAI_API_KEY) {
+      console.error('❌ OPENAI_API_KEY not configured for job matching');
+      return {
+        success: false,
+        message: 'AI service is not configured. Please configure OPENAI_API_KEY in environment variables.',
+        error: 'OPENAI_API_KEY not set'
+      };
+    }
+
     if (!projects || projects.length === 0 || !jobDescription) {
       return {
         success: false,

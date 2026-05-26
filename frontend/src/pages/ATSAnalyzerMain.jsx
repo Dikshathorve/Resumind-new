@@ -79,7 +79,9 @@ export default function ATSAnalyzerMain({ onClose, resumeData }) {
       setAnalysisResults(transformedResults)
       setLoading(false)
     } catch (error) {
-      alert('Failed to analyze resume. Please try again. Check console for details.')
+      const errorMessage = error.message || 'Failed to analyze resume. Please try again. Check console for details.'
+      alert(errorMessage)
+      console.error('Resume analysis error:', error)
       setLoading(false)
     }
   }
@@ -143,7 +145,9 @@ export default function ATSAnalyzerMain({ onClose, resumeData }) {
       
       reader.readAsText(uploadedFile)
     } catch (error) {
-      alert('Failed to analyze resume. Please try again. Check console for details.')
+      const errorMessage = error.message || 'Failed to analyze resume. Please try again. Check console for details.'
+      alert(errorMessage)
+      console.error('Resume analysis error:', error)
       setLoading(false)
     }
   }
