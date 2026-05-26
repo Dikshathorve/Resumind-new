@@ -88,12 +88,13 @@ export default function ProjectsPage({ onStart, onClose, onEditResume }) {
   const handleCreateResumeSubmit = async (resumeTitle) => {
     setIsCreating(true)
     try {
-      onStart(resumeTitle)
+      await onStart(resumeTitle)
       setShowCreateModal(false)
       // Refresh the resumes list after creation
       setTimeout(() => fetchUserResumes(), 500)
     } catch (error) {
       console.error('[Projects Page] Error creating resume:', error)
+      alert(`Failed to create resume: ${error.message}`)
     } finally {
       setIsCreating(false)
     }

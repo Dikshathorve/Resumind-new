@@ -1,10 +1,18 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { X } from 'lucide-react'
 import './CreateResumeModal.css'
 
 export default function CreateResumeModal({ isOpen, onClose, onSubmit, isLoading }) {
   const [resumeTitle, setResumeTitle] = useState('')
   const [error, setError] = useState('')
+  const inputRef = useRef(null)
+
+  // Focus input when modal opens
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      setTimeout(() => inputRef.current?.focus(), 100)
+    }
+  }, [isOpen])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -19,6 +27,11 @@ export default function CreateResumeModal({ isOpen, onClose, onSubmit, isLoading
     setResumeTitle('')
   }
 
+  const handleInputChange = (e) => {
+    setResumeTitle(e.target.value)
+    setError('')
+  }
+
   if (!isOpen) return null
 
   return (
@@ -31,21 +44,25 @@ export default function CreateResumeModal({ isOpen, onClose, onSubmit, isLoading
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="create-resume-form">
+        <form onSubmit={handleSubmit} className="create-resume-form" noValidate>
           <div className="form-group">
             <label htmlFor="resume-title">Resume Title</label>
             <input
+              ref={inputRef}
               id="resume-title"
               type="text"
               placeholder="e.g., Software Engineer Resume, Full Stack Developer"
               value={resumeTitle}
-              onChange={(e) => {
-                setResumeTitle(e.target.value)
-                setError('')
+              onChange={handleInputChange}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !isLoading) {
+                  handleSubmit(e)
+                }
               }}
               autoComplete="off"
               disabled={isLoading}
-              autoFocus
+              aria-label="Resume title"
+              required
             />
             {error && <span className="error-message">{error}</span>}
           </div>

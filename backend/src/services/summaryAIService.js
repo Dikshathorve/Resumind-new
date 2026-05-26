@@ -15,6 +15,17 @@ export const enhanceProfessionalSummary = async (summaryText) => {
       };
     }
 
+    // Check if API key is configured
+    if (!process.env.OPENAI_API_KEY) {
+      console.error('❌ OPENAI_API_KEY not configured');
+      return {
+        success: false,
+        message: 'AI service is not configured',
+        enhanced: null,
+        error: 'OPENAI_API_KEY not set'
+      };
+    }
+
     const client = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY
     });

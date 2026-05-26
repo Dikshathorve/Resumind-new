@@ -22,6 +22,16 @@ router.post('/suggest/profession', async (req, res) => {
     console.log('📌 OpenAI API Key exists:', !!process.env.OPENAI_API_KEY);
     console.log('📌 OpenAI Model:', process.env.OPENAI_MODEL);
 
+    // Check if API key is configured
+    if (!process.env.OPENAI_API_KEY) {
+      console.error('❌ OPENAI_API_KEY not configured');
+      return res.status(503).json({
+        success: false,
+        message: 'AI service is currently unavailable. Please try again later or contact support.',
+        error: 'API key not configured'
+      });
+    }
+
     const result = await generateProfessionRecommendations(profession);
 
     console.log('✅ Generation result:', result);

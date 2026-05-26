@@ -18,6 +18,17 @@ export const generateJobDescription = async (jobInfo) => {
       };
     }
 
+    // Check if API key is configured
+    if (!process.env.OPENAI_API_KEY) {
+      console.error('❌ OPENAI_API_KEY not configured');
+      return {
+        success: false,
+        message: 'AI service is not configured',
+        description: null,
+        error: 'OPENAI_API_KEY not set'
+      };
+    }
+
     const client = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY
     });

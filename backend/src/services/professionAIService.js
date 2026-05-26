@@ -15,6 +15,17 @@ export const generateProfessionRecommendations = async (professionInput) => {
       };
     }
 
+    // Check if API key is configured
+    if (!process.env.OPENAI_API_KEY) {
+      console.error('❌ OPENAI_API_KEY not configured in environment');
+      return {
+        success: false,
+        message: 'AI service is not configured. Please contact support.',
+        recommendations: [],
+        error: 'OPENAI_API_KEY not set in environment variables'
+      };
+    }
+
     const client = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY
     });

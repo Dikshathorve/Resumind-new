@@ -127,33 +127,44 @@ export const signup = asyncHandler(async (req, res) => {
 // @desc    Login user
 // @access  Public
 export const signin = asyncHandler(async (req, res) => {
+  console.log(`[SIGNIN] 🔐 Signin request received from: ${req.headers.origin}`)
+  
   const { email, password } = req.body
 
   // Validation
   if (!email || !password) {
+    console.log('[SIGNIN] ❌ Missing email or password')
     return res.status(400).json({
       success: false,
       message: 'Please provide email and password',
     })
   }
 
+  console.log(`[SIGNIN] 👤 Attempting login for: ${email}`)
+
   // Find user and select password
   const user = await User.findOne({ email }).select('+password')
   if (!user) {
+    console.log(`[SIGNIN] ❌ User not found: ${email}`)
     return res.status(401).json({
       success: false,
       message: 'Invalid email or password',
     })
   }
 
+  console.log(`[SIGNIN] ✓ User found: ${user._id}`)
+
   // Check password
   const isPasswordValid = await user.comparePassword(password)
   if (!isPasswordValid) {
+    console.log('[SIGNIN] ❌ Password invalid')
     return res.status(401).json({
       success: false,
       message: 'Invalid email or password',
     })
   }
+
+  console.log('[SIGNIN] ✓ Password valid')
 
   // Update last login
   user.lastLogin = new Date()

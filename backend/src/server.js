@@ -20,6 +20,23 @@ const app = express()
 // Trust proxy - CRITICAL for secure cookies behind load balancers/reverse proxies (Render.com, etc.)
 app.set('trust proxy', 1)
 
+// ========== ENVIRONMENT VALIDATION ==========
+console.log('\n📋 ============ ENVIRONMENT CHECK ============')
+console.log(`✓ NODE_ENV: ${process.env.NODE_ENV || 'development'}`)
+console.log(`✓ DATABASE: ${process.env.MONGODB_URI ? 'Configured' : '❌ NOT SET'}`)
+console.log(`✓ SESSION_SECRET: ${process.env.SESSION_SECRET ? 'Configured' : '❌ NOT SET'}`)
+console.log(`✓ OPENAI_API_KEY: ${process.env.OPENAI_API_KEY ? '✓ Configured' : '❌ ⚠️ NOT SET - AI features will be unavailable'}`)
+console.log(`✓ EMAILJS_SERVICE_ID: ${process.env.EMAILJS_SERVICE_ID ? 'Configured' : '❌ NOT SET'}`)
+console.log('=============================================\n')
+
+if (!process.env.OPENAI_API_KEY) {
+  console.warn('\n⚠️  WARNING: OPENAI_API_KEY is not set!')
+  console.warn('   - Professional summary enhancement will fail')
+  console.warn('   - Experience description generation will fail')
+  console.warn('   - Job matcher will fail')
+  console.warn('   Please set OPENAI_API_KEY in your Render.com environment variables.\n')
+}
+
 // Connect to database (non-blocking - don't wait for connection)
 connectDB().catch(err => {
   console.error('Database connection will be retried...')
