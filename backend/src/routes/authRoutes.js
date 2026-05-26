@@ -32,9 +32,9 @@ router.post('/signin', signin)
 router.post('/send-otp', sendOTP)
 router.post('/verify-otp', verifyOTP)
 router.post('/resend-otp', resendOTP)
+router.get('/verify', verifySession) // Public - used by frontend to check if session exists on app load
 
 // Protected routes (require authentication)
 router.post('/logout', isAuthenticated, logout)
-router.get('/verify', isAuthenticated, verifySession)
 
 export default router

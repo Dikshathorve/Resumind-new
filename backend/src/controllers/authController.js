@@ -195,10 +195,11 @@ export const logout = asyncHandler(async (req, res) => {
 })
 
 // @route   GET /api/auth/verify
-// @desc    Verify user session
-// @access  Private
+// @desc    Verify user session - PUBLIC ENDPOINT
+// @access  Public
 export const verifySession = asyncHandler(async (req, res) => {
-  if (!req.session.userId) {
+  // Check if session exists
+  if (!req.session || !req.session.userId) {
     return res.status(401).json({
       success: false,
       message: 'No active session',
