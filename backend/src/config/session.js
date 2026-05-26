@@ -11,10 +11,11 @@ export const sessionConfig = session({
     touchAfter: 24 * 3600, // lazy session update (in seconds)
   }),
   cookie: {
-    secure: config.nodeEnv === 'production', // require HTTPS in production
+    secure: process.env.NODE_ENV === 'production' || true, // always use secure in production
     httpOnly: true, // prevent client-side JS from accessing the cookie
     maxAge: config.sessionMaxAge, // 7 days
-    sameSite: 'strict', // CSRF protection
+    sameSite: 'none', // allow cross-site cookies (required for frontend on different domain)
+    domain: undefined, // allow all domains
   },
   name: 'resumind.sid', // custom session cookie name
 })
