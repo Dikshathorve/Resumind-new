@@ -17,6 +17,9 @@ import atsRoutes from './routes/atsRoutes.js'
 
 const app = express()
 
+// Trust proxy - CRITICAL for secure cookies behind load balancers/reverse proxies (Render.com, etc.)
+app.set('trust proxy', 1)
+
 // Connect to database (non-blocking - don't wait for connection)
 connectDB().catch(err => {
   console.error('Database connection will be retried...')
@@ -91,8 +94,13 @@ app.use((req, res, next) => {
 // Session middleware
 app.use(sessionConfig)
 
-// Request logging middleware
+// Session debugging middleware
 app.use((req, res, next) => {
+  if (req.path.startsWith('/api/')) {
+    const hasSession = !!(req.session && req.session.userId)
+    const sessionId = req.sessionID || 'NO_SESSION_ID'
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.path} | Session: ${hasSession ? '✓' : '✗'} | SessionID: ${sessionId.substring(0, 10)}...`)
+  }
   next()
 })
 

@@ -1,9 +1,14 @@
 // Auth Middleware
 export const isAuthenticated = (req, res, next) => {
   if (req.session && req.session.userId) {
+    console.log(`[Auth Middleware] ✅ Authenticated | User: ${req.session.email} | SessionID: ${req.sessionID?.substring(0, 10)}...`)
     next()
   } else {
-    console.error('[Auth Middleware] Authentication failed - No userId in session')
+    console.error('[Auth Middleware] ❌ Authentication failed')
+    console.error(`  - Session exists: ${!!req.session}`)
+    console.error(`  - UserId in session: ${req.session?.userId ? 'YES' : 'NO'}`)
+    console.error(`  - Session ID: ${req.sessionID || 'NONE'}`)
+    console.error(`  - Request headers (cookie):`, req.headers.cookie || 'NO COOKIES')
     res.status(401).json({
       success: false,
       message: 'Not authenticated. Please login first.',

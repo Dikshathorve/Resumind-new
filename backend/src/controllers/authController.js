@@ -106,6 +106,10 @@ export const signup = asyncHandler(async (req, res) => {
   req.session.email = user.email
   req.session.name = user.fullName
 
+  console.log(`[SIGNUP] ✅ Session created for user ${user.email}`)
+  console.log(`[SIGNUP] Session ID: ${req.sessionID}`)
+  console.log(`[SIGNUP] Session Data:`, { userId: req.session.userId, email: req.session.email })
+
   res.status(201).json({
     success: true,
     message: 'User registered successfully',
@@ -159,6 +163,10 @@ export const signin = asyncHandler(async (req, res) => {
   req.session.userId = user._id
   req.session.email = user.email
   req.session.name = user.fullName
+
+  console.log(`[SIGNIN] ✅ Session created for user ${user.email}`)
+  console.log(`[SIGNIN] Session ID: ${req.sessionID}`)
+  console.log(`[SIGNIN] Session Data:`, { userId: req.session.userId, email: req.session.email })
 
   res.status(200).json({
     success: true,
