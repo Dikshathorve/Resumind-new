@@ -14,7 +14,8 @@ export function AuthProvider({ children }) {
 
     if (storedAuth === 'true' && storedUser) {
       // Verify session with backend to get fresh user data
-      fetch('http://localhost:5000/api/auth/verify', {
+      const apiBaseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+      fetch(`${apiBaseUrl}/auth/verify`, {
         method: 'GET',
         credentials: 'include',
       })

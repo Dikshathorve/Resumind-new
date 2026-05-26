@@ -77,7 +77,8 @@ export default function SignUp({ onClose, onSuccess, onShowSignIn }) {
 
       try {
         // Verify OTP
-        const verifyResponse = await fetch('http://localhost:5000/api/auth/verify-otp', {
+        const apiBaseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+        const verifyResponse = await fetch(`${apiBaseUrl}/auth/verify-otp`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -97,7 +98,7 @@ export default function SignUp({ onClose, onSuccess, onShowSignIn }) {
         }
 
         // Step 2: Create user account after OTP verification
-        const signupResponse = await fetch('http://localhost:5000/api/auth/signup', {
+        const signupResponse = await fetch(`${apiBaseUrl}/auth/signup`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -162,7 +163,8 @@ export default function SignUp({ onClose, onSuccess, onShowSignIn }) {
 
     try {
       // Step 1: Request OTP generation from backend
-      const otpResponse = await fetch('http://localhost:5000/api/auth/send-otp', {
+      const apiBaseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+      const otpResponse = await fetch(`${apiBaseUrl}/auth/send-otp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -212,7 +214,8 @@ export default function SignUp({ onClose, onSuccess, onShowSignIn }) {
 
     try {
       // Request new OTP from backend
-      const response = await fetch('http://localhost:5000/api/auth/resend-otp', {
+      const apiBaseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+      const response = await fetch(`${apiBaseUrl}/auth/resend-otp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
