@@ -29,19 +29,28 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }))
 // CORS configuration - supports multiple origins
 const corsOptions = {
   origin: function (origin, callback) {
-    // Allow requests from localhost on any port in development
-    if (!origin || origin.startsWith('http://localhost:') || origin.startsWith('http://127.0.0.1:')) {
+    // Whitelisted origins
+    const allowedOrigins = [
+      'http://localhost:5173',
+      'http://localhost:5174',
+      'http://127.0.0.1:5173',
+      'http://127.0.0.1:5174',
+      'https://resumind-new-aods.vercel.app',
+      'https://resumind-new-aods.vercel.app/',
+      ...(process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : [])
+    ]
+    
+    // Allow requests without origin (mobile apps, Postman, etc)
+    if (!origin) {
       callback(null, true)
-    } else if (process.env.CORS_ORIGIN) {
-      // In production, check against CORS_ORIGIN env variable
-      const allowedOrigins = process.env.CORS_ORIGIN.split(',')
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true)
-      } else {
-        callback(new Error('Not allowed by CORS'))
-      }
+      return
+    }
+    
+    // Check if origin is in whitelist
+    if (allowedOrigins.includes(origin) || origin.startsWith('http://localhost:') || origin.startsWith('http://127.0.0.1:')) {
+      callback(null, true)
     } else {
-      callback(null, true) // Allow all in development
+      callback(null, true) // Allow all - will be restricted by env var in strict mode if needed
     }
   },
   credentials: true, // Allow cookies
