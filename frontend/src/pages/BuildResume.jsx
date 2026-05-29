@@ -1028,8 +1028,8 @@ export default function BuildResume({ onClose, onATSAnalyzer, onJobMatcher, resu
           if (aiFieldIndex !== null && typeof aiFieldIndex === 'number') {
             const copy = [...experiences]
             if (aiFieldType === 'company') copy[aiFieldIndex].company = suggestion
-            if (aiFieldType === 'role') copy[aiFieldIndex].role = suggestion
-            if (aiFieldType === 'description') copy[aiFieldIndex].desc = suggestion
+            if (aiFieldType === 'role') copy[aiFieldIndex].jobTitle = suggestion
+            if (aiFieldType === 'description') copy[aiFieldIndex].description = suggestion
             setExperiences(copy)
           } else {
             if (aiFieldType === 'jobTitle') setPersonal(p => ({...p, jobTitle: suggestion}))

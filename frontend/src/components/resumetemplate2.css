@@ -226,22 +226,19 @@
 
 /* ========== SKILLS ========== */
 .skills-container-t2 {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.skills-container-t2 {
-  padding-left: 20px;
+  list-style: none;
+  padding-left: 0;
+  margin: 8px 0;
 }
 
 .skill-item-t2 {
   font-size: 12px;
   color: #1f2937;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   line-height: 1.5;
   word-wrap: break-word;
   white-space: normal;
+  padding-left: 12px;
 }
 
 /* ========== CERTIFICATIONS ========== */

@@ -100,16 +100,16 @@ export default function ResumeTemplate3({ personal, summary, experiences, educat
               <section className="content-section">
                 <h3 className="section-title-t3">EXPERIENCE</h3>
                 {experiences.map((exp, idx) => (
-                  (exp.company || exp.role || exp.title) && (
+                  (exp.company || exp.jobTitle || exp.title) && (
                     <div key={idx} className="exp-item-t3">
                       <div className="exp-header">
                         <div>
                           <p className="exp-company-t3">{exp.company || ''}</p>
-                          <h4 className="exp-title-t3">{exp.role || exp.title || 'Position'}</h4>
+                          <h4 className="exp-title-t3">{exp.jobTitle || exp.title || 'Position'}</h4>
                         </div>
                         <div className="exp-date">{exp.startDate ? formatDate(exp.startDate) : ''}{(exp.startDate && (exp.endDate || exp.currentlyWorking)) && ' - '}{exp.currentlyWorking ? 'Present' : (exp.endDate ? formatDate(exp.endDate) : '')}</div>
                       </div>
-                      {exp.desc && <p className="exp-desc-t3">{exp.desc}</p>}
+                      {exp.description && <p className="exp-desc-t3">{exp.description}</p>}
                     </div>
                   )
                 ))}

@@ -76,11 +76,11 @@ export default function ResumeTemplate2({ personal, summary, experiences, educat
           <div className="resume-section-t2">
             <h2 className="section-title-t2">Experience</h2>
             {experiences.map((exp, idx) => (
-              (exp.company || exp.role || exp.position) && (
+              (exp.company || exp.jobTitle || exp.position) && (
                 <div key={idx} className="experience-item-t2">
                   <div className="experience-header-t2">
                     <div className="experience-title-block-t2">
-                      <h3 className="job-title-t2">{exp.role || exp.position || 'Position'}</h3>
+                      <h3 className="job-title-t2">{exp.jobTitle || exp.position || 'Position'}</h3>
                       <p className="company-name-t2">{exp.company || 'Company'}</p>
                     </div>
                     {(exp.startDate || exp.endDate) && (
@@ -91,7 +91,7 @@ export default function ResumeTemplate2({ personal, summary, experiences, educat
                       </div>
                     )}
                   </div>
-                  {exp.desc && <p className="experience-desc-t2">{exp.desc}</p>}
+                  {exp.description && <p className="experience-desc-t2">{exp.description}</p>}
                 </div>
               )
             ))}
@@ -142,7 +142,9 @@ export default function ResumeTemplate2({ personal, summary, experiences, educat
           <div className="resume-section-t2">
             <h2 className="section-title-t2">Skills</h2>
             <ul className="skills-container-t2">
-              <li className="skill-item-t2">{skills.join(', ')}</li>
+              {skills.map((skill, idx) => (
+                <li key={idx} className="skill-item-t2">• {skill}</li>
+              ))}
             </ul>
           </div>
         )}
